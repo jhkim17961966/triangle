@@ -1,117 +1,389 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>특수각 삼각비 짝맞추기</title>
 
 <style>
+
+/* =========================
+   기본 설정
+========================= */
+
 * {
     box-sizing: border-box;
 }
 
 body {
     margin: 0;
-    font-family: "Pretendard", "Noto Sans KR", sans-serif;
+    font-family: "Pretendard", "Noto Sans KR", Arial, sans-serif;
     background: #f5f7fb;
     color: #222;
-}
-
-.container {
-    width: min(900px, 94%);
-    margin: 30px auto;
-}
-
-.top {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-    margin-bottom: 20px;
-}
-
-.info {
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 15px;
-    padding: 15px;
-    text-align: center;
-}
-
-.info-title {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 5px;
-}
-
-.info-value {
-    font-size: 28px;
-    font-weight: 800;
-}
-
-.game-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.round {
-    font-weight: 800;
-    font-size: 20px;
-}
-
-.rule {
-    font-size: 14px;
-    color: #666;
-    margin-top: 5px;
 }
 
 button {
     font-family: inherit;
 }
 
-.restart {
-    border: 1px solid #ccc;
-    background: white;
-    padding: 10px 18px;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 15px;
-}
 
-.board {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 22px;
-}
+/* =========================
+   시작 화면
+========================= */
 
-.column-title {
-    text-align: center;
-    font-weight: 800;
-    margin-bottom: 10px;
-}
+.start-screen {
 
-.cards {
-    display: grid;
-    gap: 12px;
-}
+    position: fixed;
 
-.card {
+    top: 0;
+    left: 0;
+
     width: 100%;
-    height: 90px;
-
-    border: 2px solid #d8dce5;
-    border-radius: 15px;
-
-    background: white;
+    height: 100%;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    font-size: 24px;
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f7f8ff
+        );
+
+    z-index: 9999;
+
+}
+
+
+.start-screen.hide {
+    display: none;
+}
+
+
+.start-box {
+
+    width: min(520px, 90%);
+
+    padding: 45px 40px;
+
+    background: white;
+
+    border-radius: 25px;
+
+    text-align: center;
+
+    box-shadow:
+        0 15px 50px
+        rgba(0, 0, 0, 0.13);
+
+}
+
+
+.start-icon {
+
+    font-size: 65px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.start-title {
+
+    margin: 0;
+
+    font-size: 38px;
+
+    font-weight: 900;
+
+    color: #344cc5;
+
+}
+
+
+.start-subtitle {
+
+    margin-top: 7px;
+
+    font-size: 27px;
+
     font-weight: 800;
+
+}
+
+
+.start-description {
+
+    margin-top: 22px;
+
+    font-size: 18px;
+
+    line-height: 1.7;
+
+    color: #555;
+
+}
+
+
+.start-rules {
+
+    margin-top: 25px;
+    margin-bottom: 30px;
+
+    padding: 20px 25px;
+
+    background: #f4f6ff;
+
+    border-radius: 16px;
+
+    text-align: left;
+
+    display: grid;
+
+    gap: 12px;
+
+    font-size: 16px;
+
+}
+
+
+.start-button {
+
+    width: 100%;
+
+    padding: 17px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: #4b63ee;
+
+    color: white;
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+    cursor: pointer;
+
+    transition: 0.15s;
+
+}
+
+
+.start-button:hover {
+
+    background: #374cca;
+
+    transform: translateY(-2px);
+
+}
+
+
+.start-button:active {
+
+    transform: scale(0.98);
+
+}
+
+
+/* =========================
+   전체 게임 화면
+========================= */
+
+.container {
+
+    width: min(900px, 94%);
+
+    margin: 30px auto;
+
+}
+
+
+/* =========================
+   시간 / 점수
+========================= */
+
+.top {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 20px;
+
+}
+
+
+.info {
+
+    background: white;
+
+    border: 1px solid #ddd;
+
+    border-radius: 15px;
+
+    padding: 15px;
+
+    text-align: center;
+
+}
+
+
+.info-title {
+
+    font-size: 14px;
+
+    color: #777;
+
+    margin-bottom: 5px;
+
+}
+
+
+.info-value {
+
+    font-size: 30px;
+
+    font-weight: 900;
+
+}
+
+
+/* =========================
+   게임 위쪽
+========================= */
+
+.game-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 15px;
+
+    margin-bottom: 17px;
+
+}
+
+
+.round {
+
+    font-size: 21px;
+
+    font-weight: 900;
+
+}
+
+
+.rule {
+
+    margin-top: 5px;
+
+    font-size: 14px;
+
+    color: #666;
+
+}
+
+
+.restart {
+
+    padding: 11px 18px;
+
+    border: 1px solid #ccc;
+
+    border-radius: 10px;
+
+    background: white;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+}
+
+
+/* =========================
+   카드 영역
+========================= */
+
+.board {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 22px;
+
+}
+
+
+.column-title {
+
+    margin-bottom: 10px;
+
+    text-align: center;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
+}
+
+
+.cards {
+
+    display: grid;
+
+    gap: 12px;
+
+}
+
+
+/* =========================
+   카드
+========================= */
+
+.card {
+
+    width: 100%;
+
+    height: 92px;
+    min-height: 92px;
+    max-height: 92px;
+
+    padding: 10px;
+
+    border:
+        2px solid
+        #d8dce5;
+
+    border-radius: 15px;
+
+    background: white;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    font-size: 25px;
+
+    font-weight: 900;
 
     cursor: pointer;
 
@@ -119,151 +391,338 @@ button {
         transform 0.12s,
         border-color 0.12s,
         background 0.12s;
+
 }
+
 
 .card:hover:not(:disabled) {
+
+    border-color: #6c7fff;
+
     transform: translateY(-2px);
-    border-color: #758cff;
+
 }
+
 
 .card:active:not(:disabled) {
+
     transform: scale(0.98);
+
 }
+
+
+.card:disabled {
+
+    cursor: default;
+
+}
+
+
+/* 선택 */
 
 .selected {
-    border-color: #4b66ff;
+
+    border-color: #4b63ee;
+
     background: #eef1ff;
+
 }
+
+
+/* 맞춘 카드 */
 
 .correct {
-    opacity: 0.35;
-    pointer-events: none;
+
+    opacity: 0.30;
+
 }
+
+
+/* 오답 */
 
 .wrong {
-    animation: shake 0.25s;
-    border-color: #e34d59;
+
+    border-color: #e84755;
+
+    animation:
+        shake 0.25s;
+
 }
+
 
 @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-7px); }
-    75% { transform: translateX(7px); }
+
+    0%,
+    100% {
+        transform:
+            translateX(0);
+    }
+
+    25% {
+        transform:
+            translateX(-7px);
+    }
+
+    75% {
+        transform:
+            translateX(7px);
+    }
+
 }
 
-.message {
-    text-align: center;
-    min-height: 40px;
-    margin-top: 18px;
-    font-size: 19px;
-    font-weight: 800;
-}
+
+/* =========================
+   폭탄
+========================= */
 
 .bomb {
-    font-size: 35px;
+
+    font-size: 38px;
+
 }
+
 
 .bomb-text {
-    font-size: 16px;
+
     margin-left: 8px;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
 }
 
-/* 수학 표현 */
+
+/* =========================
+   수학식 표현
+========================= */
 
 .math {
+
     display: inline-flex;
+
+    align-items: center;
     justify-content: center;
-    align-items: center;
 
-    font-family: "Times New Roman", serif;
-    font-size: 32px;
-}
+    font-family:
+        "Times New Roman",
+        serif;
 
-.frac {
-    display: inline-flex;
-    flex-direction: column;
-    align-items: center;
+    font-size: 33px;
 
     line-height: 1;
-    min-width: 45px;
+
 }
+
+
+/* 분수 */
+
+.frac {
+
+    display: inline-flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 48px;
+
+    line-height: 1;
+
+}
+
 
 .frac-top {
+
     width: 100%;
-    padding: 0 6px 4px;
+
+    padding:
+        0 6px
+        5px;
+
     text-align: center;
-    border-bottom: 2px solid currentColor;
+
+    border-bottom:
+        2px solid
+        currentColor;
+
 }
+
 
 .frac-bottom {
-    padding-top: 4px;
+
+    padding-top: 5px;
+
 }
+
+
+/* 루트 */
 
 .sqrt {
+
     display: inline-flex;
+
     align-items: flex-start;
+
 }
+
 
 .sqrt-symbol {
+
     font-size: 1.25em;
-    line-height: 0.95;
+
+    line-height: 0.92;
+
     margin-right: -2px;
+
 }
+
 
 .radicand {
-    border-top: 2px solid currentColor;
-    padding: 1px 3px 0 3px;
+
+    padding:
+        1px
+        4px
+        0
+        3px;
+
+    border-top:
+        2px solid
+        currentColor;
+
 }
 
-/* 결과창 */
+
+/* =========================
+   메시지
+========================= */
+
+.message {
+
+    min-height: 42px;
+
+    margin-top: 17px;
+
+    text-align: center;
+
+    font-size: 19px;
+
+    font-weight: 900;
+
+}
+
+
+/* =========================
+   종료 결과
+========================= */
 
 .result {
+
     display: none;
 
     margin-top: 20px;
-    padding: 25px;
 
-    border-radius: 15px;
-    border: 1px solid #ddd;
+    padding: 30px;
+
     background: white;
 
+    border:
+        1px solid #ddd;
+
+    border-radius: 18px;
+
     text-align: center;
+
 }
+
 
 .result.show {
+
     display: block;
+
 }
+
 
 .result-title {
-    font-size: 25px;
+
+    margin-bottom: 13px;
+
+    font-size: 27px;
+
     font-weight: 900;
-    margin-bottom: 10px;
+
 }
+
 
 .result-score {
-    font-size: 22px;
+
+    font-size: 23px;
+
 }
+
 
 .again {
-    margin-top: 18px;
+
+    margin-top: 22px;
+
+    padding:
+        13px 25px;
+
     border: none;
-    background: #4b66ff;
+
+    border-radius: 12px;
+
+    background: #4b63ee;
+
     color: white;
-    padding: 12px 20px;
-    border-radius: 10px;
-    font-weight: 800;
+
+    font-size: 17px;
+
+    font-weight: 900;
+
     cursor: pointer;
+
 }
 
-@media (max-width: 600px) {
+
+/* =========================
+   모바일
+========================= */
+
+@media (
+    max-width: 600px
+) {
 
     .container {
         width: 96%;
     }
 
+    .top {
+        gap: 6px;
+    }
+
+    .info {
+        padding: 10px 5px;
+    }
+
+    .info-value {
+        font-size: 24px;
+    }
+
+    .board {
+        gap: 10px;
+    }
+
     .card {
-        height: 75px;
+
+        height: 78px;
+        min-height: 78px;
+        max-height: 78px;
+
         font-size: 19px;
+
     }
 
     .math {
@@ -274,106 +733,312 @@ button {
         font-size: 12px;
     }
 
+    .start-box {
+        padding: 35px 25px;
+    }
+
+    .start-title {
+        font-size: 31px;
+    }
+
+    .start-subtitle {
+        font-size: 22px;
+    }
+
 }
+
 </style>
+
 </head>
+
 
 <body>
 
-<div class="container">
 
-    <div class="top">
+<!-- =========================
+     시작 화면
+========================= -->
 
-        <div class="info">
-            <div class="info-title">남은 시간</div>
-            <div id="time" class="info-value">2:00</div>
+<div
+    id="startScreen"
+    class="start-screen"
+>
+
+    <div class="start-box">
+
+        <div class="start-icon">
+            📐
         </div>
 
-        <div class="info">
-            <div class="info-title">점수</div>
-            <div id="score" class="info-value">0</div>
+        <h1 class="start-title">
+            특수각 삼각비
+        </h1>
+
+        <div class="start-subtitle">
+            짝맞추기 챌린지
         </div>
 
-        <div class="info">
-            <div class="info-title">맞힌 문제</div>
-            <div id="correctCount" class="info-value">0</div>
+
+        <div class="start-description">
+
+            30°, 45°, 60°의 삼각비와<br>
+
+            알맞은 값을 빠르게 연결하세요!
+
         </div>
 
-    </div>
 
+        <div class="start-rules">
 
-    <div class="game-header">
-
-        <div>
-            <div id="round" class="round">
-                1세트
+            <div>
+                ⏱ 제한시간 2분
             </div>
 
-            <div class="rule">
-                2초 이내 10점 · 이후 점수 감소 · 최저 5점 · 오답 시 제한시간 -3초
-            </div>
-        </div>
-
-        <button id="restart" class="restart">
-            다시 시작
-        </button>
-
-    </div>
-
-
-    <div id="board" class="board">
-
-        <div>
-
-            <div class="column-title">
-                삼각비
+            <div>
+                ⚡ 2초 이내 정답 → 10점
             </div>
 
-            <div id="leftCards" class="cards"></div>
-
-        </div>
-
-
-        <div>
-
-            <div class="column-title">
-                값
+            <div>
+                📉 시간이 오래 걸리면 최저 5점
             </div>
 
-            <div id="rightCards" class="cards"></div>
+            <div>
+                ❌ 오답 → 제한시간 3초 감소
+            </div>
+
+            <div>
+                💣 폭탄 등장 확률 5%
+            </div>
 
         </div>
 
-    </div>
 
+        <button
+            id="startButton"
+            class="start-button"
+        >
 
-    <div id="message" class="message"></div>
+            게임 시작하기
 
-
-    <div id="result" class="result">
-
-        <div class="result-title">
-            ⏱ 게임 종료!
-        </div>
-
-        <div class="result-score">
-            최종 점수
-            <strong id="finalScore">0</strong>점
-        </div>
-
-        <div style="margin-top:8px;">
-            총
-            <strong id="finalCorrect">0</strong>
-            문제를 맞혔습니다.
-        </div>
-
-        <button id="playAgain" class="again">
-            다시 도전
         </button>
 
     </div>
 
 </div>
+
+
+
+<!-- =========================
+     게임 화면
+========================= -->
+
+<div class="container">
+
+
+    <!-- 시간 / 점수 -->
+
+    <div class="top">
+
+        <div class="info">
+
+            <div class="info-title">
+                남은 시간
+            </div>
+
+            <div
+                id="time"
+                class="info-value"
+            >
+                2:00
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="info-title">
+                점수
+            </div>
+
+            <div
+                id="score"
+                class="info-value"
+            >
+                0
+            </div>
+
+        </div>
+
+
+        <div class="info">
+
+            <div class="info-title">
+                맞힌 문제
+            </div>
+
+            <div
+                id="correctCount"
+                class="info-value"
+            >
+                0
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- 게임 정보 -->
+
+    <div class="game-header">
+
+        <div>
+
+            <div
+                id="round"
+                class="round"
+            >
+                1세트
+            </div>
+
+            <div class="rule">
+
+                2초 이내 10점 ·
+                이후 점수 감소 ·
+                최저 5점 ·
+                오답 시 -3초
+
+            </div>
+
+        </div>
+
+
+        <button
+            id="restart"
+            class="restart"
+        >
+
+            다시 시작
+
+        </button>
+
+    </div>
+
+
+
+    <!-- 카드 -->
+
+    <div
+        id="board"
+        class="board"
+    >
+
+
+        <!-- 왼쪽 -->
+
+        <section>
+
+            <div class="column-title">
+                삼각비
+            </div>
+
+            <div
+                id="leftCards"
+                class="cards"
+            ></div>
+
+        </section>
+
+
+
+        <!-- 오른쪽 -->
+
+        <section>
+
+            <div class="column-title">
+                값
+            </div>
+
+            <div
+                id="rightCards"
+                class="cards"
+            ></div>
+
+        </section>
+
+    </div>
+
+
+
+    <!-- 메시지 -->
+
+    <div
+        id="message"
+        class="message"
+    ></div>
+
+
+
+    <!-- 결과 -->
+
+    <div
+        id="result"
+        class="result"
+    >
+
+        <div class="result-title">
+
+            ⏱ 게임 종료!
+
+        </div>
+
+
+        <div class="result-score">
+
+            최종 점수
+
+            <strong id="finalScore">
+                0
+            </strong>
+
+            점
+
+        </div>
+
+
+        <div
+            style="
+                margin-top: 9px;
+                font-size: 18px;
+            "
+        >
+
+            총
+
+            <strong id="finalCorrect">
+                0
+            </strong>
+
+            문제를 맞혔습니다.
+
+        </div>
+
+
+        <button
+            id="playAgain"
+            class="again"
+        >
+
+            다시 도전
+
+        </button>
+
+    </div>
+
+</div>
+
 
 
 <script>
@@ -444,42 +1109,82 @@ const answerKeys = [
 ];
 
 
+
 /* ==============================
    HTML 요소
 ================================ */
 
+const startScreen =
+    document.getElementById(
+        "startScreen"
+    );
+
+
+const startButton =
+    document.getElementById(
+        "startButton"
+    );
+
+
 const leftCards =
-    document.getElementById("leftCards");
+    document.getElementById(
+        "leftCards"
+    );
+
 
 const rightCards =
-    document.getElementById("rightCards");
+    document.getElementById(
+        "rightCards"
+    );
+
 
 const timeElement =
-    document.getElementById("time");
+    document.getElementById(
+        "time"
+    );
+
 
 const scoreElement =
-    document.getElementById("score");
+    document.getElementById(
+        "score"
+    );
+
 
 const correctElement =
-    document.getElementById("correctCount");
+    document.getElementById(
+        "correctCount"
+    );
+
 
 const roundElement =
-    document.getElementById("round");
+    document.getElementById(
+        "round"
+    );
+
 
 const message =
-    document.getElementById("message");
+    document.getElementById(
+        "message"
+    );
 
-const board =
-    document.getElementById("board");
 
 const result =
-    document.getElementById("result");
+    document.getElementById(
+        "result"
+    );
+
 
 const finalScore =
-    document.getElementById("finalScore");
+    document.getElementById(
+        "finalScore"
+    );
+
 
 const finalCorrect =
-    document.getElementById("finalCorrect");
+    document.getElementById(
+        "finalCorrect"
+    );
+
 
 
 /* ==============================
@@ -507,24 +1212,32 @@ let gameOver = false;
 let movingNextRound = false;
 
 
+
 /* ==============================
-   배열 랜덤 섞기
+   배열 랜덤
 ================================ */
 
 function shuffle(array) {
 
-    const copied = [...array];
+    const copied =
+        [...array];
+
 
     for (
-        let i = copied.length - 1;
+        let i =
+            copied.length - 1;
+
         i > 0;
+
         i--
     ) {
 
         const randomIndex =
             Math.floor(
-                Math.random() * (i + 1)
+                Math.random()
+                * (i + 1)
             );
+
 
         [
             copied[i],
@@ -538,17 +1251,21 @@ function shuffle(array) {
 
     }
 
+
     return copied;
+
 }
 
 
+
 /* ==============================
-   루트 표현
+   루트
 ================================ */
 
 function sqrtHTML(number) {
 
     return `
+
         <span class="sqrt">
 
             <span class="sqrt-symbol">
@@ -560,12 +1277,15 @@ function sqrtHTML(number) {
             </span>
 
         </span>
+
     `;
+
 }
 
 
+
 /* ==============================
-   분수 표현
+   분수
 ================================ */
 
 function fractionHTML(
@@ -574,153 +1294,232 @@ function fractionHTML(
 ) {
 
     return `
+
         <span class="frac">
 
             <span class="frac-top">
+
                 ${numerator}
+
             </span>
 
             <span class="frac-bottom">
+
                 ${denominator}
+
             </span>
 
         </span>
+
     `;
+
 }
 
 
+
 /* ==============================
-   정답 수식 표시
+   정답 수학식
 ================================ */
 
 function answerHTML(key) {
 
-    if (key === "half") {
+
+    if (
+        key === "half"
+    ) {
 
         return `
+
             <span class="math">
-                ${fractionHTML("1", "2")}
+
+                ${
+                    fractionHTML(
+                        "1",
+                        "2"
+                    )
+                }
+
             </span>
+
         `;
 
     }
 
 
-    if (key === "sqrt2half") {
+
+    if (
+        key === "sqrt2half"
+    ) {
 
         return `
+
             <span class="math">
-                ${fractionHTML(
-                    sqrtHTML("2"),
-                    "2"
-                )}
+
+                ${
+                    fractionHTML(
+                        sqrtHTML("2"),
+                        "2"
+                    )
+                }
+
             </span>
+
         `;
 
     }
 
 
-    if (key === "sqrt3half") {
+
+    if (
+        key === "sqrt3half"
+    ) {
 
         return `
+
             <span class="math">
-                ${fractionHTML(
-                    sqrtHTML("3"),
-                    "2"
-                )}
+
+                ${
+                    fractionHTML(
+                        sqrtHTML("3"),
+                        "2"
+                    )
+                }
+
             </span>
+
         `;
 
     }
 
 
-    if (key === "sqrt3third") {
+
+    if (
+        key === "sqrt3third"
+    ) {
 
         return `
+
             <span class="math">
-                ${fractionHTML(
-                    sqrtHTML("3"),
-                    "3"
-                )}
+
+                ${
+                    fractionHTML(
+                        sqrtHTML("3"),
+                        "3"
+                    )
+                }
+
             </span>
+
         `;
 
     }
 
 
-    if (key === "one") {
+
+    if (
+        key === "one"
+    ) {
 
         return `
+
             <span class="math">
+
                 1
+
             </span>
+
         `;
 
     }
 
 
-    if (key === "sqrt3") {
+
+    if (
+        key === "sqrt3"
+    ) {
 
         return `
+
             <span class="math">
+
                 ${sqrtHTML("3")}
+
             </span>
+
         `;
 
     }
 
 }
+
 
 
 /* ==============================
    점수 계산
 
-   0~2초  : 10점
-   2~3초  : 9점
-   3~4초  : 8점
-   4~5초  : 7점
-   5~6초  : 6점
-   6초 초과 : 5점
+   2초 이하 : 10점
+   3초 이하 : 9점
+   4초 이하 : 8점
+   5초 이하 : 7점
+   6초 이하 : 6점
+   이후     : 5점
 ================================ */
 
 function calculateScore(seconds) {
 
-    if (seconds <= 2) {
+    if (
+        seconds <= 2
+    ) {
 
         return 10;
 
     }
 
-    if (seconds <= 3) {
+
+    if (
+        seconds <= 3
+    ) {
 
         return 9;
 
     }
 
-    if (seconds <= 4) {
+
+    if (
+        seconds <= 4
+    ) {
 
         return 8;
 
     }
 
-    if (seconds <= 5) {
+
+    if (
+        seconds <= 5
+    ) {
 
         return 7;
 
     }
 
-    if (seconds <= 6) {
+
+    if (
+        seconds <= 6
+    ) {
 
         return 6;
 
     }
 
+
     return 5;
+
 }
 
 
+
 /* ==============================
-   점수 표시
+   점수 화면 갱신
 ================================ */
 
 function updateScoreDisplay() {
@@ -728,17 +1527,20 @@ function updateScoreDisplay() {
     scoreElement.textContent =
         score;
 
+
     correctElement.textContent =
         correctCount;
 
 }
 
 
+
 /* ==============================
-   문제 세트 생성
+   새 문제 생성
 ================================ */
 
 function createRound() {
+
 
     matched = 0;
 
@@ -750,90 +1552,100 @@ function createRound() {
 
 
     /*
-        정답 값 6종류 중
-        서로 다른 4개를 랜덤 선택
+        서로 다른 정답값
+        4개 선택
     */
 
     const selectedKeys =
-        shuffle(answerKeys)
-        .slice(0, 4);
+        shuffle(
+            answerKeys
+        )
+        .slice(
+            0,
+            4
+        );
+
 
 
     /*
-        해당 값에 대응되는 문제 선택
-
-        같은 값이 여러 문제를 갖는 경우
-        하나를 랜덤 선택
-
-        예:
-        1/2
-        → sin30°
-        또는 cos60°
+        각 정답에 대응되는
+        문제 랜덤 선택
     */
 
     let selectedProblems =
-        selectedKeys.map(key => {
-
-            const candidates =
-                problems.filter(
-                    problem =>
-                        problem.key === key
-                );
-
-            return candidates[
-                Math.floor(
-                    Math.random()
-                    * candidates.length
-                )
-            ];
-
-        });
+        selectedKeys.map(
+            key => {
 
 
-    selectedProblems =
-        shuffle(selectedProblems);
+                const candidates =
+                    problems.filter(
+                        problem =>
+                            problem.key
+                            === key
+                    );
+
+
+                return candidates[
+                    Math.floor(
+                        Math.random()
+                        * candidates.length
+                    )
+                ];
+
+            }
+        );
+
 
 
     /*
-        오른쪽 정답 카드 순서도
+        왼쪽 카드 순서
+        랜덤
+    */
+
+    selectedProblems =
+        shuffle(
+            selectedProblems
+        );
+
+
+
+    /*
+        오른쪽 정답 순서
         랜덤
     */
 
     const selectedAnswers =
-        shuffle(selectedKeys);
+        shuffle(
+            selectedKeys
+        );
 
 
-    /*
-        --------------------------
-        폭탄 등장 확률
-        --------------------------
 
-        Math.random()은
-        0 이상 1 미만
-
-        0.05 = 5%
-    */
+    /* =========================
+       폭탄 5%
+    ========================= */
 
     const bombAppears =
-        Math.random() < 0.05;
+        Math.random()
+        < 0.05;
 
 
-    if (bombAppears) {
+    if (
+        bombAppears
+    ) {
 
-        /*
-            왼쪽 네 자리 중
-            한 곳 랜덤 선택
-        */
 
         const bombIndex =
             Math.floor(
-                Math.random() * 4
+                Math.random()
+                * 4
             );
 
 
         selectedProblems[
             bombIndex
-        ] =
+        ]
+        =
         {
             bomb: true
         };
@@ -841,72 +1653,95 @@ function createRound() {
     }
 
 
-    leftCards.innerHTML = "";
 
-    rightCards.innerHTML = "";
+    leftCards.innerHTML =
+        "";
 
 
-    /* ==============================
-       왼쪽 문제 카드
-    ================================ */
+    rightCards.innerHTML =
+        "";
+
+
+
+    /* =========================
+       왼쪽 카드
+    ========================= */
 
     selectedProblems.forEach(
         problem => {
+
 
             const button =
                 document.createElement(
                     "button"
                 );
 
-            button.type = "button";
+
+            button.type =
+                "button";
+
 
             button.className =
                 "card";
 
 
-            /* 폭탄 카드 */
 
-            if (problem.bomb) {
+            /* 폭탄 */
+
+            if (
+                problem.bomb
+            ) {
+
 
                 button.classList.add(
                     "bomb"
                 );
 
-                button.innerHTML =
-                    `
+
+                button.innerHTML = `
+
                     💣
-                    <span class="bomb-text">
+
+                    <span
+                        class="bomb-text"
+                    >
                         폭탄
                     </span>
-                    `;
+
+                `;
+
 
                 button.addEventListener(
                     "click",
                     () =>
-                        activateBomb(button)
+                        activateBomb(
+                            button
+                        )
                 );
 
             }
 
-            /* 일반 카드 */
+
+            /* 일반 문제 */
 
             else {
+
 
                 button.textContent =
                     problem.expression;
 
+
                 button.dataset.key =
                     problem.key;
 
-                /*
-                    카드 선택 시간을 저장
 
-                    처음 누를 때부터
-                    풀이 시간 측정
+                /*
+                    처음 선택 시간
                 */
 
                 button.dataset.startTime =
                     "";
+
 
                 button.addEventListener(
                     "click",
@@ -928,28 +1763,38 @@ function createRound() {
     );
 
 
-    /* ==============================
-       오른쪽 정답 카드
-    ================================ */
+
+    /* =========================
+       오른쪽 카드
+    ========================= */
 
     selectedAnswers.forEach(
         key => {
+
 
             const button =
                 document.createElement(
                     "button"
                 );
 
-            button.type = "button";
+
+            button.type =
+                "button";
+
 
             button.className =
                 "card";
 
+
             button.dataset.key =
                 key;
 
+
             button.innerHTML =
-                answerHTML(key);
+                answerHTML(
+                    key
+                );
+
 
             button.addEventListener(
                 "click",
@@ -970,13 +1815,15 @@ function createRound() {
 
 
     roundElement.textContent =
-        round + "세트";
+        round
+        + "세트";
 
 }
 
 
+
 /* ==============================
-   문제 카드 선택
+   왼쪽 문제 선택
 ================================ */
 
 function selectProblem(
@@ -984,9 +1831,12 @@ function selectProblem(
     problem
 ) {
 
+
     if (
-        gameOver ||
-        movingNextRound ||
+        gameOver
+        ||
+        movingNextRound
+        ||
         button.disabled
     ) {
 
@@ -995,28 +1845,30 @@ function selectProblem(
     }
 
 
+
     /*
-        기존 선택 카드 표시 제거
+        선택 표시 초기화
     */
 
     leftCards
-        .querySelectorAll(".card")
-        .forEach(card => {
+        .querySelectorAll(
+            ".card"
+        )
+        .forEach(
+            card => {
 
-            card.classList.remove(
-                "selected"
-            );
+                card.classList.remove(
+                    "selected"
+                );
 
-        });
+            }
+        );
+
 
 
     /*
-        처음 클릭했을 때만
+        처음 선택했을 때만
         시간 기록
-
-        다른 카드 눌렀다가
-        다시 돌아와도
-        시간은 초기화되지 않음
     */
 
     if (
@@ -1029,8 +1881,10 @@ function selectProblem(
     }
 
 
+
     selectedProblem =
         problem;
+
 
     selectedButton =
         button;
@@ -1047,8 +1901,9 @@ function selectProblem(
 }
 
 
+
 /* ==============================
-   정답 카드 선택
+   오른쪽 정답 선택
 ================================ */
 
 function selectAnswer(
@@ -1056,9 +1911,12 @@ function selectAnswer(
     answerKey
 ) {
 
+
     if (
-        gameOver ||
-        movingNextRound ||
+        gameOver
+        ||
+        movingNextRound
+        ||
         button.disabled
     ) {
 
@@ -1067,7 +1925,10 @@ function selectAnswer(
     }
 
 
-    if (!selectedProblem) {
+
+    if (
+        !selectedProblem
+    ) {
 
         message.textContent =
             "먼저 왼쪽 삼각비 카드를 선택하세요.";
@@ -1077,9 +1938,10 @@ function selectAnswer(
     }
 
 
-    /* ==========================
+
+    /* =========================
        정답
-    ========================== */
+    ========================= */
 
     if (
         selectedProblem.key
@@ -1090,8 +1952,8 @@ function selectAnswer(
         const startTime =
             Number(
                 selectedButton
-                .dataset
-                .startTime
+                    .dataset
+                    .startTime
             );
 
 
@@ -1109,22 +1971,29 @@ function selectAnswer(
             );
 
 
+
         score +=
             earnedScore;
 
+
         correctCount++;
 
+
         matched++;
+
 
 
         updateScoreDisplay();
 
 
+
         selectedButton.disabled =
             true;
 
+
         button.disabled =
             true;
+
 
 
         selectedButton
@@ -1148,34 +2017,46 @@ function selectAnswer(
             );
 
 
+
         message.textContent =
-            `✅ 정답! +${earnedScore}점 (${elapsedTime.toFixed(1)}초)`;
+            "✅ 정답! +"
+            + earnedScore
+            + "점 ("
+            + elapsedTime.toFixed(1)
+            + "초)";
+
 
 
         selectedProblem =
             null;
 
+
         selectedButton =
             null;
 
 
+
         /*
-            네 문제 모두 해결하면
-            다음 세트
+            4문제 완료
         */
 
-        if (matched === 4) {
+        if (
+            matched === 4
+        ) {
 
-            nextRound();
+            nextRound(
+                400
+            );
 
         }
 
     }
 
 
-    /* ==========================
+
+    /* =========================
        오답
-    ========================== */
+    ========================= */
 
     else {
 
@@ -1184,26 +2065,23 @@ function selectAnswer(
             제한시간 3초 감소
         */
 
-        endTime -= 3000;
+        endTime -=
+            3000;
 
 
-        message.textContent =
-            "❌ 오답! 제한시간 -3초";
-
-
-        /*
-            흔들림 효과
-        */
 
         button.classList.remove(
             "wrong"
         );
 
+
         void button.offsetWidth;
+
 
         button.classList.add(
             "wrong"
         );
+
 
 
         selectedButton
@@ -1212,13 +2090,21 @@ function selectAnswer(
                 "wrong"
             );
 
+
         void selectedButton.offsetWidth;
+
 
         selectedButton
             .classList
             .add(
                 "wrong"
             );
+
+
+
+        message.textContent =
+            "❌ 오답! 제한시간 -3초";
+
 
 
         updateTimer();
@@ -1228,15 +2114,22 @@ function selectAnswer(
 }
 
 
+
 /* ==============================
    폭탄
 ================================ */
 
-function activateBomb(button) {
+function activateBomb(
+    button
+) {
+
 
     if (
-        gameOver ||
+        gameOver
+        ||
         movingNextRound
+        ||
+        button.disabled
     ) {
 
         return;
@@ -1244,62 +2137,114 @@ function activateBomb(button) {
     }
 
 
+
     /*
-        현재 남아 있는 문제 개수
+        현재 세트의
+        남은 문제 수
     */
 
     const remaining =
-        4 - matched;
+        4
+        - matched;
+
 
 
     /*
-        폭탄 문제는
-        각각 10점 처리
+        폭탄은 문제당
+        10점
     */
 
     const bonus =
-        remaining * 10;
+        remaining
+        * 10;
 
 
-    score += bonus;
 
-    correctCount += remaining;
+    score +=
+        bonus;
 
-    matched = 4;
+
+    correctCount +=
+        remaining;
+
+
+    matched =
+        4;
+
 
 
     updateScoreDisplay();
 
 
+
     /*
-        모든 카드 비활성화
+        모든 카드 처리
     */
 
-    document
-        .querySelectorAll(".card")
-        .forEach(card => {
+    leftCards
+        .querySelectorAll(
+            ".card"
+        )
+        .forEach(
+            card => {
 
-            card.disabled = true;
+                card.disabled =
+                    true;
 
-            card.classList.add(
-                "correct"
-            );
+                card.classList.add(
+                    "correct"
+                );
 
-        });
+            }
+        );
 
+
+
+    rightCards
+        .querySelectorAll(
+            ".card"
+        )
+        .forEach(
+            card => {
+
+                card.disabled =
+                    true;
+
+                card.classList.add(
+                    "correct"
+                );
+
+            }
+        );
+
+
+
+    /*
+        폭탄은 흐리게
+        표시하지 않음
+    */
 
     button.classList.remove(
         "correct"
     );
 
 
+
     message.textContent =
-        `💥 폭탄! ${remaining}문제 자동 정답! +${bonus}점`;
+        "💥 폭탄! "
+        + remaining
+        + "문제 자동 정답! +"
+        + bonus
+        + "점";
 
 
-    nextRound(600);
+
+    nextRound(
+        650
+    );
 
 }
+
 
 
 /* ==============================
@@ -1310,8 +2255,10 @@ function nextRound(
     delay = 400
 ) {
 
+
     if (
-        movingNextRound ||
+        movingNextRound
+        ||
         gameOver
     ) {
 
@@ -1320,15 +2267,23 @@ function nextRound(
     }
 
 
-    movingNextRound = true;
+
+    movingNextRound =
+        true;
+
 
 
     setTimeout(
         () => {
 
-            if (!gameOver) {
+
+            if (
+                !gameOver
+            ) {
+
 
                 round++;
+
 
                 createRound();
 
@@ -1338,12 +2293,15 @@ function nextRound(
             movingNextRound =
                 false;
 
+
         },
 
         delay
+
     );
 
 }
+
 
 
 /* ==============================
@@ -1352,50 +2310,67 @@ function nextRound(
 
 function updateTimer() {
 
-    if (gameOver) {
+
+    if (
+        gameOver
+    ) {
 
         return;
 
     }
 
 
+
     const remainingMilliseconds =
-        endTime - Date.now();
+        endTime
+        - Date.now();
+
 
 
     const remainingSeconds =
         Math.max(
+
             0,
+
             Math.ceil(
                 remainingMilliseconds
                 / 1000
             )
+
         );
+
 
 
     const minutes =
         Math.floor(
-            remainingSeconds / 60
+            remainingSeconds
+            / 60
         );
 
 
     const seconds =
-        remainingSeconds % 60;
+        remainingSeconds
+        % 60;
+
 
 
     timeElement.textContent =
+
         minutes
         + ":"
-        + String(seconds)
-            .padStart(2, "0");
+        + String(
+            seconds
+        )
+        .padStart(
+            2,
+            "0"
+        );
 
 
-    /*
-        제한시간 종료
-    */
 
     if (
-        remainingSeconds <= 0
+        remainingSeconds
+        <= 0
     ) {
 
         finishGame();
@@ -1405,46 +2380,66 @@ function updateTimer() {
 }
 
 
+
 /* ==============================
    게임 종료
 ================================ */
 
 function finishGame() {
 
-    if (gameOver) {
+
+    if (
+        gameOver
+    ) {
 
         return;
 
     }
 
 
-    gameOver = true;
 
-    movingNextRound = false;
+    gameOver =
+        true;
 
 
-    clearInterval(timer);
+    movingNextRound =
+        false;
+
+
+
+    clearInterval(
+        timer
+    );
+
 
 
     timeElement.textContent =
         "0:00";
 
 
+
     document
-        .querySelectorAll(".card")
-        .forEach(card => {
+        .querySelectorAll(
+            ".card"
+        )
+        .forEach(
+            card => {
 
-            card.disabled =
-                true;
+                card.disabled =
+                    true;
 
-        });
+            }
+        );
+
 
 
     finalScore.textContent =
         score;
 
+
     finalCorrect.textContent =
         correctCount;
+
 
 
     result.classList.add(
@@ -1458,41 +2453,60 @@ function finishGame() {
 }
 
 
+
 /* ==============================
-   게임 시작
+   게임 시작 / 재시작
 ================================ */
 
 function startGame() {
 
-    clearInterval(timer);
+
+    clearInterval(
+        timer
+    );
 
 
-    score = 0;
 
-    correctCount = 0;
+    score =
+        0;
 
-    round = 1;
 
-    matched = 0;
+    correctCount =
+        0;
+
+
+    round =
+        1;
+
+
+    matched =
+        0;
+
 
     selectedProblem =
         null;
 
+
     selectedButton =
         null;
 
+
     gameOver =
         false;
+
 
     movingNextRound =
         false;
 
 
+
     updateScoreDisplay();
+
 
 
     timeElement.textContent =
         "2:00";
+
 
 
     result.classList.remove(
@@ -1500,8 +2514,9 @@ function startGame() {
     );
 
 
+
     /*
-        2분 = 120초
+        정확히 2분
     */
 
     endTime =
@@ -1509,10 +2524,17 @@ function startGame() {
         + 120000;
 
 
+
+    /*
+        첫 문제 생성
+    */
+
     createRound();
 
 
+
     updateTimer();
+
 
 
     timer =
@@ -1524,33 +2546,79 @@ function startGame() {
 }
 
 
+
 /* ==============================
-   버튼
+   처음 시작 버튼
+================================ */
+
+startButton.addEventListener(
+    "click",
+    () => {
+
+
+        /*
+            시작 화면 제거
+        */
+
+        startScreen.classList.add(
+            "hide"
+        );
+
+
+        /*
+            이 순간부터
+            2분 시작
+        */
+
+        startGame();
+
+    }
+);
+
+
+
+/* ==============================
+   다시 시작 버튼
 ================================ */
 
 document
-    .getElementById("restart")
+    .getElementById(
+        "restart"
+    )
     .addEventListener(
         "click",
         startGame
     );
 
 
+
+/* ==============================
+   게임 종료 후 다시 도전
+================================ */
+
 document
-    .getElementById("playAgain")
+    .getElementById(
+        "playAgain"
+    )
     .addEventListener(
         "click",
         startGame
     );
 
 
-/* ==============================
-   최초 실행
-================================ */
 
-startGame();
+/*
+    중요!
+
+    여기에는 startGame()을
+    자동으로 실행하지 않음.
+
+    학생이 '게임 시작하기'를
+    눌러야 타이머가 시작됨.
+*/
 
 </script>
 
 </body>
+
 </html>
